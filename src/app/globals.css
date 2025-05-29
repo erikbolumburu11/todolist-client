@@ -77,7 +77,7 @@
   --color-sidebar-foreground: var(--color-foreground);
   --color-sidebar-primary: var(--color-primary);
   --color-sidebar-primary-foreground: var(--color-primary-400);
-  --color-sidebar-accent: var(--color-background-200);
+  --color-sidebar-accent: var(--color-primary-400);
   --color-sidebar-accent-foreground: var(--color-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
