@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "../components/sidebar/sidebar";
+import { TaskProvider } from "../contexts/taskcontext";
 
 export const metadata: Metadata = {
   title: "Tasks",
@@ -14,12 +15,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SidebarProvider>
-      <AppSidebar/>
-      <main>
-        <SidebarTrigger/>
-        {children}
-      </main>
-    </SidebarProvider>
+    <TaskProvider>
+      <SidebarProvider>
+        <AppSidebar/>
+        <main>
+          <SidebarTrigger/>
+          {children}
+        </main>
+      </SidebarProvider>
+    </TaskProvider>
   );
 }

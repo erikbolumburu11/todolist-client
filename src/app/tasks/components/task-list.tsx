@@ -5,15 +5,7 @@ import { useContext } from "react";
 import TaskListItem from "./task-list-item";
 
 export default function TaskList(){
-    const taskContext = useContext(TaskContext);
-
-    if(!taskContext){
-        return <p>Loading Tasks</p>;
-    }
-
-    const { tasks } = taskContext;
-
-    console.log(tasks);
+    const { tasks } = useContext(TaskContext)!;
 
     const taskListItems = tasks.map(task => 
         <div key={task.id}>

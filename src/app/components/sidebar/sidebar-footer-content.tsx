@@ -6,7 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { SidebarMenuButton } from "@/components/ui/sidebar";
 import axios from "axios";
 import { ChevronUp, User2 } from "lucide-react";
-import { redirect } from "next/navigation";
+import { redirect }  from "next/navigation";
 import { useContext } from "react";
 
 function AccountSettings(){
@@ -20,7 +20,7 @@ function AccountSettings(){
             console.log(error);
         })
         .finally(() => {
-            redirect('/');
+            window.location.href = '/tasks';
         });
     }
 

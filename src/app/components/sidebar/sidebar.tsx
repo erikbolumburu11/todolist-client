@@ -14,6 +14,9 @@ import {
 import SiderbarMenuItem from "./siderbar-menu-item"
 import { SidebarFooterContent } from "./sidebar-footer-content"
 import { UserProvider } from "@/app/contexts/usercontext"
+import { TaskProvider } from "@/app/contexts/taskcontext"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import AddTaskDialogContent from "@/app/tasks/components/add-task-dialog-content"
 
 export function AppSidebar() {
 
@@ -26,9 +29,16 @@ export function AppSidebar() {
               <SidebarGroupContent>
                   <SidebarMenu className="">
                     <div className="flex justify-center">
-                      <Button className="w-19/20 h-10 rounded hover:bg-primary-400 ">
-                          <p className="text-xl">Add Task</p>
-                      </Button>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                            <Button className="w-19/20 h-10 rounded hover:bg-primary-400 ">
+                                <p className="text-xl">Add Task</p>
+                            </Button>
+                          </DialogTrigger>
+                        <DialogContent className="sm:max-w-md">
+                        <AddTaskDialogContent/>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                       <div className="my-3"/>
                       <SiderbarMenuItem
@@ -46,7 +56,9 @@ export function AppSidebar() {
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarFooterContent/>
+              <TaskProvider>
+                <SidebarFooterContent/>
+              </TaskProvider>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>

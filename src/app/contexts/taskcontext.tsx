@@ -1,7 +1,7 @@
 "use client"
 
 import axios from "axios";
-import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useMemo, useState } from "react";
 
 export interface Task {
     id: number;
@@ -14,7 +14,12 @@ interface TaskContextType {
     setTasks: Dispatch<SetStateAction<Task[]>>;
 }
 
-export const TaskContext = createContext<TaskContextType | null>(null);
+const defaultContext: TaskContextType = {
+  tasks: [],
+  setTasks: () => { throw new Error("setTasks not implemented") }
+};
+
+export const TaskContext = createContext<TaskContextType | null>(defaultContext);
 
 export const TaskProvider = ({ children } : {children: ReactNode}) => {
     const [tasks, setTasks] = useState<Task[]>([]);
@@ -24,9 +29,6 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
             withCredentials: true
         })
         .then((response) => {
-            // setTasks([
-            //     {id: 1, name: "walk dog", done: true}
-            // ]);
             setTasks(response.data);
         })
         .catch((error) => {
@@ -34,8 +36,14 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
         })
     }, []);
 
+    useEffect(() => {
+        console.log("Tasks updated:", tasks);
+    }, [tasks]);
+
+    const value = useMemo(() => ({ tasks, setTasks }), [tasks]);
+
     return (
-        <TaskContext.Provider value={{tasks, setTasks}}>
+        <TaskContext.Provider value={value}>
             { children }
         </TaskContext.Provider>
     );
