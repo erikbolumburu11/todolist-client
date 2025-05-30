@@ -5,7 +5,7 @@ import axios from "axios";
 import { CalendarIcon, Pen, Trash2 } from "lucide-react";
 import { useContext, useState } from "react";
 import EditTaskDialogContent from "./edit-task-dialog-content";
-import { format, formatDistance, formatDistanceStrict, formatDistanceToNow, formatDistanceToNowStrict, isFuture, isPast, isToday, isTomorrow } from "date-fns";
+import { format, formatDistanceStrict, isFuture, isToday, isTomorrow } from "date-fns";
 
 export default function TaskListItem({task} : {task: Task}){
     const [done, setDone] = useState(task.done);
