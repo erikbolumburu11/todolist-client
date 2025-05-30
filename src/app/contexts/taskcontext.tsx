@@ -4,7 +4,7 @@ import axios from "axios";
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useState } from "react";
 import { UserContext } from "./usercontext";
 
-export interface Task {
+export type Task = {
     id: number;
     name: string;
     done: boolean;
