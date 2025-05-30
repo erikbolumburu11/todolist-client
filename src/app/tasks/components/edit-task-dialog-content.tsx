@@ -1,3 +1,4 @@
+
 import { DialogClose, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod";
@@ -8,19 +9,29 @@ import axios from "axios"
 import { useForm } from "react-hook-form";
 import { taskSchema } from "@/app/schemas/taskschema";
 import { useContext } from "react";
-import { TaskContext } from "@/app/contexts/taskcontext";
+import { Task, TaskContext } from "@/app/contexts/taskcontext";
 
-export default function AddTaskDialogContent(){
-    const { setTasks } = useContext(TaskContext)!;
+export default function AddTaskDialogContent({task} : {task: Task}){
+    const { tasks, setTasks} = useContext(TaskContext)!;
 
     function onSubmit(values: z.infer<typeof taskSchema>){
-        axios.post('http://localhost:8080/tasks/new/', {
-            taskName: values.name,
+        axios.post('http://localhost:8080/tasks/update/', {
+            taskid: task.id,
+            "updates": {
+                "name": values.name
+            }
         }, {
             withCredentials: true
         }).then((response) => {
-            const data = response.data;
-            setTasks(prev => [...prev, {id: data.id, name: data.name, done: data.done}]);
+            const data = response.data.data;
+
+            setTasks(tasks.map(task => {
+                if(task.id === data.id) {
+                    task.name = data.name;
+                    task.done = data.done;
+                }
+                return task;
+            }));
         })
         .catch((error) => {
             console.log(error);
@@ -34,10 +45,12 @@ export default function AddTaskDialogContent(){
         },
     });
 
+    form.setValue('name', task.name);
+
     return (
         <div>
             <DialogHeader>
-                <DialogTitle>Add Task</DialogTitle>
+                <DialogTitle>Edit Task</DialogTitle>
             </DialogHeader>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="">
@@ -49,14 +62,16 @@ export default function AddTaskDialogContent(){
                                 <FormItem>
                                     <FormLabel>Task Title</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Task Title" {...field} />
+                                        <Input
+                                            placeholder="Task Title" 
+                                            {...field} />
                                     </FormControl>
                                 </FormItem>
                             )}
                         />
                     </div>
                     <DialogClose asChild>
-                        <Button type="submit">Add Task</Button>
+                        <Button type="submit">Save Changes</Button>
                     </DialogClose>
                 </form>
             </Form>

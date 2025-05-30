@@ -63,7 +63,12 @@ export default function Login() {
                                     <FormItem>
                                         <FormLabel>Password</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Password" {...field} />
+                                            <Input 
+                                                type="password"
+                                                autoComplete="off"
+                                                placeholder="Password"
+                                                {...field}
+                                            />
                                         </FormControl>
                                     </FormItem>
                                 )}

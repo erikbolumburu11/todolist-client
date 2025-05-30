@@ -34,6 +34,10 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
         })
     }, [user]);
 
+    useEffect(() => {
+        console.log("Tasks updated:", tasks);
+    }, [tasks]);
+
     const value = useMemo(() => ({ tasks, setTasks }), [tasks]);
 
     return (

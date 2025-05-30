@@ -1,8 +1,10 @@
 import { Task, TaskContext } from "@/app/contexts/taskcontext";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import axios from "axios";
 import { Pen, Trash2 } from "lucide-react";
 import { useContext, useState } from "react";
+import EditTaskDialogContent from "./edit-task-dialog-content";
 
 export default function TaskListItem({task} : {task: Task}){
     const [done, setDone] = useState(task.done);
@@ -36,7 +38,6 @@ export default function TaskListItem({task} : {task: Task}){
         .catch((error) => {
             console.log(error);
         })
-
     }
 
     return (
@@ -48,11 +49,16 @@ export default function TaskListItem({task} : {task: Task}){
                 onChange={handleChecked}
             />
             {task.name}
-            <Button
-                className="bg-inherit hover:bg-background-300 ms-3 shadow-none"
-            >
-                <Pen/>
-            </Button>
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button className="bg-inherit hover:bg-background-300 ms-3 shadow-none">
+                        <Pen/>
+                    </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                    <EditTaskDialogContent task={task}/>
+                </DialogContent>
+            </Dialog>
             <Button
                 className="bg-inherit hover:bg-background-300 shadow-none"
                 onClick={deleteTask}
