@@ -14,12 +14,7 @@ interface TaskContextType {
     setTasks: Dispatch<SetStateAction<Task[]>>;
 }
 
-const defaultContext: TaskContextType = {
-  tasks: [],
-  setTasks: () => { throw new Error("setTasks not implemented") }
-};
-
-export const TaskContext = createContext<TaskContextType | null>(defaultContext);
+export const TaskContext = createContext<TaskContextType | null>(null);
 
 export const TaskProvider = ({ children } : {children: ReactNode}) => {
     const [tasks, setTasks] = useState<Task[]>([]);
@@ -35,10 +30,6 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
             console.log(error);
         })
     }, []);
-
-    useEffect(() => {
-        console.log("Tasks updated:", tasks);
-    }, [tasks]);
 
     const value = useMemo(() => ({ tasks, setTasks }), [tasks]);
 
