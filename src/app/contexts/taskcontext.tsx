@@ -8,6 +8,7 @@ export interface Task {
     id: number;
     name: string;
     done: boolean;
+    due: Date;
 }
 
 interface TaskContextType {

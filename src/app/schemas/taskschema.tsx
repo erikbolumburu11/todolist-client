@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
 export const taskSchema = z.object({
-    name: z.string()
+    name: z.string(),
+    due: z.date().optional().nullable()
 })

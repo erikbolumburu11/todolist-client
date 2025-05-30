@@ -2,9 +2,10 @@ import { Task, TaskContext } from "@/app/contexts/taskcontext";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import axios from "axios";
-import { Pen, Trash2 } from "lucide-react";
+import { CalendarIcon, Pen, Trash2 } from "lucide-react";
 import { useContext, useState } from "react";
 import EditTaskDialogContent from "./edit-task-dialog-content";
+import { format, formatDistance, formatDistanceStrict, formatDistanceToNow, formatDistanceToNowStrict, isFuture, isPast, isToday, isTomorrow } from "date-fns";
 
 export default function TaskListItem({task} : {task: Task}){
     const [done, setDone] = useState(task.done);
@@ -49,9 +50,11 @@ export default function TaskListItem({task} : {task: Task}){
                 onChange={handleChecked}
             />
             {task.name}
+            <DueDateLabel date={task.due}/>
+            <DistanceFromDateLabel date={task.due}/>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button className="bg-inherit hover:bg-background-300 ms-3 shadow-none">
+                    <Button className="bg-inherit hover:bg-background-300 shadow-none">
                         <Pen/>
                     </Button>
                 </DialogTrigger>
@@ -66,5 +69,41 @@ export default function TaskListItem({task} : {task: Task}){
                 <Trash2/>
             </Button>
         </div>
+    );
+}
+
+function DueDateLabel({date} : {date: Date}){
+    if(!date) return null;
+
+    return (
+        <>
+            <span className="ms-5 me-2"><CalendarIcon size={20}/></span> {format(date, 'P')}
+        </>
+    );
+}
+
+function DistanceFromDateLabel({date} : {date: Date}) {
+    if(!date) return null;
+
+    if(isToday(date)){
+        return(
+            <span className="px-1">(Today)</span>
+        );
+    }
+
+    if(isTomorrow(date)){
+        return(
+            <span className="px-1">(Tomorrow)</span>
+        );
+    }
+
+    if(isFuture(date)){
+        return(
+            <span className="px-1">(Due in {formatDistanceStrict(date, new Date().toDateString())})</span>
+        );
+    }
+
+    return(
+        <span className="px-1">(Due {formatDistanceStrict(new Date().toDateString(), date)} ago)</span>
     );
 }
