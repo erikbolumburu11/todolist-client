@@ -3,6 +3,7 @@ import "../globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "../components/sidebar/sidebar";
 import { TaskProvider } from "../contexts/taskcontext";
+import { UserProvider } from "../contexts/usercontext";
 
 export const metadata: Metadata = {
   title: "Tasks",
@@ -15,14 +16,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <TaskProvider>
-      <SidebarProvider>
-        <AppSidebar/>
-        <main>
-          <SidebarTrigger/>
-          {children}
-        </main>
-      </SidebarProvider>
-    </TaskProvider>
+    <UserProvider>
+      <TaskProvider>
+        <SidebarProvider>
+          <AppSidebar/>
+          <main>
+            <SidebarTrigger/>
+            {children}
+          </main>
+        </SidebarProvider>
+      </TaskProvider>
+    </UserProvider>
   );
 }
