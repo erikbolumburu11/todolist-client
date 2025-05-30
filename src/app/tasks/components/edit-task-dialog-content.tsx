@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DialogClose, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod";
@@ -6,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import axios from "axios"
 import { useForm } from "react-hook-form";
 import { taskSchema } from "@/app/schemas/taskschema";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Task, TaskContext } from "@/app/contexts/taskcontext";
 import { addMinutes, subMinutes } from "date-fns";
 import TaskDialogForm from "./task-dialog-form";
@@ -20,14 +21,15 @@ export function adjustForTimezone(date: Date | undefined | null){
 export default function AddTaskDialogContent({task} : {task: Task}){
     const { tasks, setTasks} = useContext(TaskContext)!;
 
-
     function onSubmit(values: z.infer<typeof taskSchema>){
+        const updates: any = {};
+        if(values.name !== task.name) updates.name = values.name;
+        if(adjustForTimezone(values.due) !== task.due) updates.due = adjustForTimezone(values.due);
+        if(values.due === undefined || values.due === null) updates.due = null;
+
         axios.post('http://localhost:8080/tasks/update/', {
             taskid: task.id,
-            "updates": {
-                "name": values.name,
-                "due": adjustForTimezone(values.due)
-            }
+            updates
         }, {
             withCredentials: true
         }).then((response) => {
@@ -35,7 +37,6 @@ export default function AddTaskDialogContent({task} : {task: Task}){
 
             setTasks(tasks.map(task => {
                 if(task.id === data.id) {
-                    console.log(data.due);
                     task.name = data.name;
                     task.done = data.done;
                     task.due = data.due;
@@ -56,8 +57,13 @@ export default function AddTaskDialogContent({task} : {task: Task}){
         },
     });
 
-    form.setValue('name', task.name);
-    form.setValue('due', task.due);
+    // Set form defaults
+    useEffect(() => {
+        form.reset({
+            name: task.name,
+            due: task.due ? new Date(task.due) : undefined,
+        });
+    }, [task, form])
 
     return (
         <div>
