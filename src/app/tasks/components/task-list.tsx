@@ -26,7 +26,7 @@ export default function TaskList(){
         columnHelper.accessor("done", {
             header: ({ column }) => {
                 return (
-                    <HeaderButton title="Done" column={column}/>
+                    <HeaderButton title="" column={column}/>
                 )
         },
             cell: (info) => <TaskCheckbox task={info.row.original}/>,
@@ -114,7 +114,7 @@ export default function TaskList(){
     }
 
     return(
-        <div className="">
+        <div className="w-fit">
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (

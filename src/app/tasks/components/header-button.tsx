@@ -5,6 +5,7 @@ import { Column } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
 export default function HeaderButton({title, column } : {title: string, column: Column<Task, any>}){
+    const arrowClassname = title ? "ml-2 h-4 w-4" : "h-4 w-4";
     return (
         <Button
             className="hover:bg-secondary-200 rounded"
@@ -12,7 +13,7 @@ export default function HeaderButton({title, column } : {title: string, column: 
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
             {title}
-            <ArrowUpDown className="ml-2 h-4 w-4" />
+            <ArrowUpDown className={arrowClassname} />
         </Button>
     );
 }
