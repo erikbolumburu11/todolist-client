@@ -7,7 +7,8 @@ import axios from "axios";
 import { useContext } from "react";
 
 export default function TaskActions({task} : {task: Task}){
-    const { tasks, setTasks } = useContext(TaskContext)!;
+    const { tasksByGroup, currentGroupId, setTasksForGroup } = useContext(TaskContext)!;
+    const tasks = tasksByGroup[currentGroupId];
 
     function deleteTask(){
         axios.post('http://localhost:8080/tasks/delete/', {
@@ -15,7 +16,7 @@ export default function TaskActions({task} : {task: Task}){
         }, {
             withCredentials: true
         }).then(() => {
-            setTasks(tasks.filter((obj) => {return obj !== task}));
+            setTasksForGroup(currentGroupId, tasks.filter((obj) => {return obj !== task}));
         })
         .catch((error) => {
             console.log(error);

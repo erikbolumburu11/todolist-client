@@ -4,6 +4,8 @@ import axios from "axios";
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useState } from "react";
 import { UserContext } from "./usercontext";
 
+export const UNGROUPED_KEY = -1;
+
 export type Task = {
     id: number;
     name: string;
@@ -11,24 +13,37 @@ export type Task = {
     due: Date;
 }
 
+export type Group = {
+    id: number;
+    name: string;
+}
+
 interface TaskContextType {
-    tasks: Task[];
-    setTasks: Dispatch<SetStateAction<Task[]>>;
+    groups: Group[];
+    currentGroupId: number;
+    setCurrentGroupId: Dispatch<SetStateAction<number>>;
+    tasksByGroup: Record<number, Task[]>;
+    setTasksForGroup: (groupId: number, tasks: Task[]) => void;
 }
 
 export const TaskContext = createContext<TaskContextType | null>(null);
 
 export const TaskProvider = ({ children } : {children: ReactNode}) => {
-    const [tasks, setTasks] = useState<Task[]>([]);
+    const [groups, setGroups] = useState<Task[]>([]);
+    const [currentGroupId, setCurrentGroupId] = useState<number>(-1);
+    const [tasksByGroup, setTasksByGroup] = useState<Record<number, Task[]>>({});
+
     const user = useContext(UserContext);
 
     useEffect(() => {
         if(user === null) return;
-        axios.get('http://localhost:8080/tasks/getusertasks/', {
+
+        axios.get('http://localhost:8080/tasks/get/groups/', {
             withCredentials: true
         })
         .then((response) => {
-            setTasks(response.data);
+            setGroups(response.data);
+            setCurrentGroupId(-1);
         })
         .catch((error) => {
             console.log(error);
@@ -36,10 +51,41 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
     }, [user]);
 
     useEffect(() => {
-        console.log("Tasks updated:", tasks);
-    }, [tasks]);
+        if(currentGroupId == null){
+            axios.get(`http://localhost:8080/tasks/get/`, { withCredentials: true })
+            .then((response) => {
+                setTasksByGroup(prev => ({
+                    ...prev,
+                    [-1]: response.data
+                }));
+            })
+            .catch(console.error);
+        }
 
-    const value = useMemo(() => ({ tasks, setTasks }), [tasks]);
+        axios.get(`http://localhost:8080/tasks/get/${currentGroupId}`, { withCredentials: true })
+            .then((response) => {
+                setTasksByGroup(prev => ({
+                    ...prev,
+                    [currentGroupId!]: response.data
+                }));
+            })
+            .catch(console.error);
+    }, [currentGroupId]);
+
+    const setTasksForGroup = (groupId: number, tasks: Task[]) => {
+        setTasksByGroup(prev => ({
+            ...prev,
+            [groupId]: tasks
+        }));
+    }
+
+    const value = useMemo(() => ({
+        groups,
+        currentGroupId,
+        setCurrentGroupId,
+        tasksByGroup,
+        setTasksForGroup
+    }), [groups, currentGroupId, tasksByGroup])
 
     return (
         <TaskContext.Provider value={value}>

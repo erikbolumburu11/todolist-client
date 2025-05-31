@@ -19,7 +19,8 @@ export function adjustForTimezone(date: Date | undefined | null){
 }
 
 export default function AddTaskDialogContent({task} : {task: Task}){
-    const { tasks, setTasks} = useContext(TaskContext)!;
+    const { tasksByGroup, currentGroupId, setTasksForGroup } = useContext(TaskContext)!;
+    const tasks = tasksByGroup[currentGroupId];
 
     function onSubmit(values: z.infer<typeof taskSchema>){
         const updates: any = {};
@@ -35,7 +36,7 @@ export default function AddTaskDialogContent({task} : {task: Task}){
         }).then((response) => {
             const data = response.data.data;
 
-            setTasks(tasks.map(task => {
+            setTasksForGroup(currentGroupId, tasks.map(task => {
                 if(task.id === data.id) {
                     task.name = data.name;
                     task.done = data.done;

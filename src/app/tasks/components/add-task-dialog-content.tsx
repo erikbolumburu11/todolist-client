@@ -12,7 +12,8 @@ import { adjustForTimezone } from "./edit-task-dialog-content";
 import TaskDialogForm from "./task-dialog-form";
 
 export default function AddTaskDialogContent(){
-    const { setTasks } = useContext(TaskContext)!;
+    const { tasksByGroup, currentGroupId, setTasksForGroup } = useContext(TaskContext)!;
+    const tasks = tasksByGroup[currentGroupId];
 
     function onSubmit(values: z.infer<typeof taskSchema>){
         console.log(values.due);
@@ -23,7 +24,9 @@ export default function AddTaskDialogContent(){
             withCredentials: true
         }).then((response) => {
             const data = response.data;
-            setTasks(prev => [...prev, {id: data.id, name: data.name, done: data.done, due: data.due}]);
+            const newTask = {id: data.id, name: data.name, done: data.done, due: data.due};
+            const updatedTasks = [...(tasks || []), newTask];
+            setTasksForGroup(currentGroupId, updatedTasks);
         })
         .catch((error) => {
             console.log(error);

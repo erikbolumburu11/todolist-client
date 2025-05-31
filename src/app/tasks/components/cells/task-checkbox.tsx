@@ -6,7 +6,8 @@ import { useState } from "react";
 
 
 export default function TaskCheckbox({ task }: { task: Task }) {
-    const { tasks, setTasks } = useContext(TaskContext)!;
+    const { tasksByGroup, currentGroupId, setTasksForGroup} = useContext(TaskContext)!;
+    const tasks = tasksByGroup[currentGroupId];
     const [done, setDone] = useState(task.done);
 
     const handleChecked = () => {
@@ -16,7 +17,7 @@ export default function TaskCheckbox({ task }: { task: Task }) {
         const updatedTasks = tasks.map((t: Task) => (
             t.id === task.id ? {...t, done:isDone} : t
         ));
-        setTasks(updatedTasks);
+        setTasksForGroup(currentGroupId, updatedTasks);
 
         axios.post('http://localhost:8080/tasks/setdone/', {
             taskid: task.id,

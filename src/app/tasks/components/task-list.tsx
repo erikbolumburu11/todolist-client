@@ -16,7 +16,9 @@ import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/componen
 import HeaderButton from "./header-button";
 
 export default function TaskList(){
-    const { tasks } = useContext(TaskContext)!;
+    const { tasksByGroup, currentGroupId } = useContext(TaskContext)!;
+    const tasks = tasksByGroup[currentGroupId];
+
     const user = useContext(UserContext)!;
     const isMobile = useMediaQuery("only screen and (max-width : 768px)");
 
@@ -85,7 +87,7 @@ export default function TaskList(){
     })
 
     if(user === null) return ( <> <p>Login or Register!</p> </>); 
-    if(tasks.length === 0) return ( <> <p>Add a task!</p> </>);
+    if(!tasks || tasks.length === 0) return ( <> <p>Add a task!</p> </>);
 
     if(isMobile){
         const taskCards = tasks.map((task) => (
