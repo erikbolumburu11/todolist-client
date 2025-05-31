@@ -1,24 +1,27 @@
-import { Task } from "@/app/contexts/taskcontext";
-import { CellContext } from "@tanstack/react-table";
 import { formatDistanceStrict, isFuture, isToday, isTomorrow } from "date-fns";
 import { format } from "date-fns/format";
 import { CalendarIcon } from "lucide-react";
 
-export default function TaskDueDateLabel({ cell }: { cell: CellContext<Task, Date> }){
+export default function TaskDueDateLabel({ date }: { date: Date }){
     return(
-        <div className="flex items-center ms-auto gap-1 text-sm">
-            <DueDateLabel date={cell.row.original.due}/>
-            <DistanceFromDateLabel date={cell.row.original.due}/>
+        <div className="flex items-center gap-1 text-sm">
+            <DueDateLabel date={date}/>
+            <DistanceFromDateLabel date={date}/>
         </div>
     );
 }
 
 function DueDateLabel({date} : {date: Date}){
-    if(!date) return null;
+    if(!date) return (
+        <>
+            <span className="me-2"><CalendarIcon size={20}/></span>
+            <span>No due date</span>
+        </>
+    );
 
     return (
         <>
-            <span className="ms-5 me-2"><CalendarIcon size={20}/></span> {format(date, 'P')}
+            <span className="me-2"><CalendarIcon size={20}/></span> {format(date, 'P')}
         </>
     );
 }
