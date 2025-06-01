@@ -10,9 +10,10 @@ import TaskActions from "./cells/task-actions";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useState } from "react";
 import { useMediaQuery } from "@/app/utils/useMediaQuery";
-import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import HeaderButton from "./header-button";
 import { getGroupName } from "./task-dialog-form";
+import { Group } from "lucide-react";
 
 export default function TaskList(){
     const { groups, tasksByGroup, currentGroupId } = useContext(TaskContext)!;
@@ -62,7 +63,6 @@ export default function TaskList(){
             header: "",
             cell: (info) => {
                 const task = info.row.original;
-
                 return <TaskActions task={task}/>
             }
         })
@@ -93,12 +93,14 @@ export default function TaskList(){
                             <TaskCheckbox task={task}/>
                             <CardTitle className="mx-3 text-xl">{task.name}</CardTitle>
                         </div>
-                        <CardAction>
-                            <TaskActions task={task}/>
-                        </CardAction>
                     </CardHeader>
                     <CardContent>
                         <TaskDueDateLabel date={task.due}/>
+                        <div className="flex items-center">
+                            <Group/>
+                            <span className="text-sm mx-2 my-2">{getGroupName(groups[task.groupid - 1])}</span>
+                            <TaskActions task={task}/>
+                        </div>
                     </CardContent>
                 </Card>
             </div>

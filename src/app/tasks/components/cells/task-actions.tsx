@@ -24,7 +24,7 @@ export default function TaskActions({task} : {task: Task}){
     }
 
     return (
-        <div className="flex ml-auto">
+        <div className="flex ml-auto items-center">
             <Dialog>
                 <DialogTrigger asChild>
                     <Button className="mx-1 ml-auto hover:bg-accent-200 shadow bg-background-100 rounded">

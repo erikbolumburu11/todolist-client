@@ -52,6 +52,7 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
     }, [user]);
 
     useEffect(() => {
+        if(user === null) return;
         if(currentGroupId == null){
             axios.get(`http://localhost:8080/tasks/get/`, { withCredentials: true })
             .then((response) => {
@@ -71,7 +72,7 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
                 }));
             })
             .catch(console.error);
-    }, [currentGroupId]);
+    }, [currentGroupId, user]);
 
     const setTasksForGroup = (groupId: number, tasks: Task[]) => {
         setTasksByGroup(prev => ({

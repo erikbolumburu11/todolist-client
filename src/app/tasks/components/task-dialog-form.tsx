@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { format } from "date-fns/format";
-import { CalendarIcon, X } from "lucide-react";
+import { CalendarIcon, GroupIcon, X } from "lucide-react";
 import { useContext } from "react";
 import { UseFormReturn, useWatch } from "react-hook-form";
 
@@ -115,6 +115,7 @@ function DropDropdownEntries({form} : {
     const groupEntries = groups.map((group, index) => (
         <DropdownMenuItem 
             key={group.id}
+            className="hover:bg-accent-300 my-1" 
             onClick={() => {
                 form.setValue("groupid", group.id);
             }}
@@ -124,7 +125,8 @@ function DropDropdownEntries({form} : {
     ))
     return (
         <div>
-            <DropdownMenuItem 
+            <DropdownMenuItem
+                className="hover:bg-accent-300 my-1" 
                 onClick={() => {
                     form.setValue("groupid", -1);
                 }}
@@ -153,5 +155,12 @@ function GroupDropdownTrigger({form} : {
 
     if(group) dropdownLabel = group.name;
 
-    return <DropdownMenuTrigger>{dropdownLabel}</DropdownMenuTrigger>
+    return (
+        <DropdownMenuTrigger className="border h-9 hover:bg-secondary">
+            <div className="flex items-center">
+                <GroupIcon className="ms-3" size={20}/>
+                <span className="font-semibold ms-3 text-sm">{dropdownLabel}</span>
+            </div>
+        </DropdownMenuTrigger>
+    );
 }
