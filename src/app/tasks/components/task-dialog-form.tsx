@@ -10,17 +10,15 @@ import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { format } from "date-fns/format";
 import { CalendarIcon, X } from "lucide-react";
 import { useContext } from "react";
-import { ControllerRenderProps, UseFormReturn, useWatch } from "react-hook-form";
+import { UseFormReturn, useWatch } from "react-hook-form";
 
 export default function TaskDialogForm(
-    {form, task} : 
+    {form} : 
     {
         form: UseFormReturn<any>,
         task?: Task
     })
 {
-    const { groups } = useContext(TaskContext)!;
-
     return (
         <>
             <div className="my-3">
@@ -83,14 +81,14 @@ export default function TaskDialogForm(
                 <FormField
                     control={form.control}
                     name="groupid"
-                    render={({ field }) => (
+                    render={() => (
                         <FormItem>
                             <FormLabel>Task Group</FormLabel>
                             <DropdownMenu>
-                                <GroupDropdownTrigger task={task} form={form}/>
+                                <GroupDropdownTrigger form={form}/>
                                 <DropdownMenuContent className="bg-background-100">
                                     <DropdownMenuRadioGroup>
-                                        <DropDropdownEntries field={field} form={form}/>
+                                        <DropDropdownEntries form={form}/>
                                     </DropdownMenuRadioGroup>
                                 </DropdownMenuContent>
                             </DropdownMenu>
@@ -140,8 +138,7 @@ function DropDropdownEntries({form} : {
 
 
 
-function GroupDropdownTrigger({task, form} : {
-    task?: Task,
+function GroupDropdownTrigger({form} : {
     form: UseFormReturn<any>
 }){
     const { groups } = useContext(TaskContext)!;
@@ -151,7 +148,7 @@ function GroupDropdownTrigger({task, form} : {
         name: "groupid",
     })
 
-    let dropdownLabel = "No Group"
+    let dropdownLabel = "None"
     const group = groups.find((group) => group.id === selectedGroupId);
 
     if(group) dropdownLabel = group.name;

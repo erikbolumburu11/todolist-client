@@ -55,7 +55,7 @@ export default function TaskList(){
                     <HeaderButton title="Group" column={column}/>
                 )
         },
-            cell: (info) => getGroupName(groups[info.row.original.groupid--]),
+            cell: (info) => getGroupName(groups[info.row.original.groupid - 1]),
         }),
         columnHelper.display({
             id: "actions",

@@ -18,7 +18,7 @@ export function adjustForTimezone(date: Date | undefined | null){
     return offset > 0 ? subMinutes(date, offset) : addMinutes(date, Math.abs(offset));
 }
 
-export default function AddTaskDialogContent({task} : {task: Task}){
+export default function EditTaskDialogContent({task} : {task: Task}){
     const { tasksByGroup, currentGroupId, setTasksForGroup } = useContext(TaskContext)!;
     const tasks = tasksByGroup[currentGroupId];
 
@@ -27,6 +27,7 @@ export default function AddTaskDialogContent({task} : {task: Task}){
         if(values.name !== task.name) updates.name = values.name;
         if(adjustForTimezone(values.due) !== task.due) updates.due = adjustForTimezone(values.due);
         if(values.due === undefined || values.due === null) updates.due = null;
+        if(values.groupid !== task.groupid) updates.groupid = values.groupid;
 
         axios.post('http://localhost:8080/tasks/update/', {
             taskid: task.id,
@@ -41,6 +42,7 @@ export default function AddTaskDialogContent({task} : {task: Task}){
                     task.name = data.name;
                     task.done = data.done;
                     task.due = data.due;
+                    task.groupid = data.groupid;
                 }
                 return task;
             }));
