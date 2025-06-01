@@ -11,22 +11,22 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import SiderbarMenuItem from "./siderbar-menu-item"
 import { SidebarFooterContent } from "./sidebar-footer-content"
 import { TaskProvider } from "@/app/contexts/taskcontext"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import AddTaskDialogContent from "@/app/tasks/components/add-task-dialog-content"
+import GroupList from "./group-list"
 
 export function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader />
+      <SidebarHeader/>
       <SidebarContent>
         <SidebarGroup />
             <SidebarGroupContent>
-                <SidebarMenu className="">
-                  <div className="flex justify-center">
+                <SidebarMenu>
+                  <div className="flex justify-center w-full">
                     <Dialog>
                       <DialogTrigger asChild>
                           <Button className="w-19/20 h-10 rounded hover:bg-primary-400 ">
@@ -38,15 +38,8 @@ export function AppSidebar() {
                       </DialogContent>
                     </Dialog>
                   </div>
-                    <div className="my-3"/>
-                    <SiderbarMenuItem
-                      title="All Tasks"
-                      link="/"
-                    />
-                    <SiderbarMenuItem
-                      title="Due Today"
-                      link="/Today/"
-                    />
+                    <div className="my-3 w-full"/>
+                    <GroupList/>
                 </SidebarMenu>
             </SidebarGroupContent>
         <SidebarGroup />

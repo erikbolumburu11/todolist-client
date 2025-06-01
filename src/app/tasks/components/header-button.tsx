@@ -4,11 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Column } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
-export default function HeaderButton({title, column } : {title: string, column: Column<Task, any>}){
+export default function HeaderButton({title, center, column } : {title: string, center?: boolean, column: Column<Task, any>}){
+    const buttonClassName = center ? 
+        "flex mx-auto hover:bg-secondary-200 rounded cursor-pointer" :
+        "hover:bg-secondary-200 rounded cursor-pointer";
+
     const arrowClassname = title ? "ml-2 h-4 w-4" : "h-4 w-4";
     return (
         <Button
-            className="hover:bg-secondary-200 rounded"
+            className={buttonClassName}
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >

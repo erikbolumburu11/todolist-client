@@ -11,6 +11,7 @@ export type Task = {
     name: string;
     done: boolean;
     due: Date;
+    groupid: number;
 }
 
 export type Group = {

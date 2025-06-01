@@ -1,13 +1,26 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Group, Task, TaskContext } from "@/app/contexts/taskcontext";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { format } from "date-fns/format";
 import { CalendarIcon, X } from "lucide-react";
-import { UseFormReturn } from "react-hook-form";
+import { useContext } from "react";
+import { ControllerRenderProps, UseFormReturn, useWatch } from "react-hook-form";
 
-export default function TaskDialogForm({form} : {form: UseFormReturn<{ name: string; due?: Date | null | undefined; }, { name: string; due?: Date | null | undefined; }>}){
+export default function TaskDialogForm(
+    {form, task} : 
+    {
+        form: UseFormReturn<any>,
+        task?: Task
+    })
+{
+    const { groups } = useContext(TaskContext)!;
+
     return (
         <>
             <div className="my-3">
@@ -66,6 +79,82 @@ export default function TaskDialogForm({form} : {form: UseFormReturn<{ name: str
                     )}
                 />
             </div>
+            <div className="my-3">
+                <FormField
+                    control={form.control}
+                    name="groupid"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Task Group</FormLabel>
+                            <DropdownMenu>
+                                <GroupDropdownTrigger task={task} form={form}/>
+                                <DropdownMenuContent className="bg-background-100">
+                                    <DropdownMenuRadioGroup>
+                                        <DropDropdownEntries field={field} form={form}/>
+                                    </DropdownMenuRadioGroup>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </FormItem>
+                    )}
+                />
+            </div>
         </>
     );
+}
+
+export function getGroupName(group: Group): string {
+    if(group === null || group === undefined) return "None";
+    return group.name;
+}
+
+function DropDropdownEntries({form} : {
+        form: UseFormReturn<any>
+}){ 
+    const { groups } = useContext(TaskContext)!;
+    console.log(groups);
+
+    
+    const groupEntries = groups.map((group, index) => (
+        <DropdownMenuItem 
+            key={group.id}
+            onClick={() => {
+                form.setValue("groupid", group.id);
+            }}
+        >
+            {getGroupName(groups[index])}
+        </DropdownMenuItem>
+    ))
+    return (
+        <div>
+            <DropdownMenuItem 
+                onClick={() => {
+                    form.setValue("groupid", -1);
+                }}
+            >
+                No Group
+            </DropdownMenuItem>
+            {groupEntries}
+        </div>
+    );
+};
+
+
+
+function GroupDropdownTrigger({task, form} : {
+    task?: Task,
+    form: UseFormReturn<any>
+}){
+    const { groups } = useContext(TaskContext)!;
+
+    const selectedGroupId = useWatch({
+        control: form.control,
+        name: "groupid",
+    })
+
+    let dropdownLabel = "No Group"
+    const group = groups.find((group) => group.id === selectedGroupId);
+
+    if(group) dropdownLabel = group.name;
+
+    return <DropdownMenuTrigger>{dropdownLabel}</DropdownMenuTrigger>
 }

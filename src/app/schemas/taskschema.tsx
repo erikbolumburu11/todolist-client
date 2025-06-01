@@ -2,5 +2,6 @@ import { z } from 'zod';
 
 export const taskSchema = z.object({
     name: z.string().min(1, "Task name is required"),
-    due: z.date().optional().nullable()
+    due: z.date().optional().nullable(),
+    groupid: z.number().optional().nullable()
 })

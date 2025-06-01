@@ -31,7 +31,7 @@ export default function TaskCheckbox({ task }: { task: Task }) {
     }
 
     return <input
-        className="flex mx-auto accent-primary w-4 h-4"
+        className="flex md:mx-auto accent-primary md:w-4 md:h-4 w-5 h-5 cursor-pointer"
         type="checkbox" 
         checked={done} 
         onChange={handleChecked}/>;

@@ -54,7 +54,7 @@ export default function AddTaskDialogContent({task} : {task: Task}){
         resolver: zodResolver(taskSchema),
         defaultValues: {
             name: "",
-            due: undefined
+            due: undefined,
         },
     });
 
@@ -63,6 +63,7 @@ export default function AddTaskDialogContent({task} : {task: Task}){
         form.reset({
             name: task.name,
             due: task.due ? new Date(task.due) : undefined,
+            groupid: task.groupid
         });
     }, [task, form])
 
@@ -73,7 +74,7 @@ export default function AddTaskDialogContent({task} : {task: Task}){
             </DialogHeader>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="">
-                    <TaskDialogForm form={form} />
+                    <TaskDialogForm form={form} task={task}/>
                     <DialogClose asChild>
                         <Button type="submit">Save Changes</Button>
                     </DialogClose>

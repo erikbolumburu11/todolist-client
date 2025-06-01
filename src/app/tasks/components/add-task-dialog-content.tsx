@@ -24,7 +24,13 @@ export default function AddTaskDialogContent(){
             withCredentials: true
         }).then((response) => {
             const data = response.data;
-            const newTask = {id: data.id, name: data.name, done: data.done, due: data.due};
+            const newTask = {
+                id: data.id,
+                name: data.name,
+                done: data.done,
+                due: data.due,
+                groupid: data.groupid
+            };
             const updatedTasks = [...(tasks || []), newTask];
             setTasksForGroup(currentGroupId, updatedTasks);
         })
@@ -37,7 +43,7 @@ export default function AddTaskDialogContent(){
         resolver: zodResolver(taskSchema),
         defaultValues: {
             name: "",
-            due: undefined
+            due: undefined,
         },
     });
 
