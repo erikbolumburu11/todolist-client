@@ -15,8 +15,6 @@ export default function Login() {
     const router = useRouter();
 
     function onSubmit(values: z.infer<typeof userSchema>){
-        console.log(process.env.NEXT_PUBLIC_API_URL);
-        console.log(process.env.NEXT_PUBLIC_API_URL + '/auth/login/');
         axios.post(process.env.NEXT_PUBLIC_API_URL + '/auth/login/', {
             username: values.username,
             password: values.password
