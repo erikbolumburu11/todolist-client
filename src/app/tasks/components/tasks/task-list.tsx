@@ -4,9 +4,9 @@ import { Task, TaskContext } from "@/app/contexts/taskcontext";
 import { useContext } from "react";
 import { UserContext } from "@/app/contexts/usercontext";
 import { createColumnHelper, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table"
-import TaskCheckbox from "./cells/task-checkbox";
-import TaskDueDateLabel from "./cells/due-date-label";
-import TaskActions from "./cells/task-actions";
+import TaskCheckbox from "../cells/task-checkbox";
+import TaskDueDateLabel from "../cells/due-date-label";
+import TaskActions from "../cells/task-actions";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useState } from "react";
 import { useMediaQuery } from "@/app/utils/useMediaQuery";

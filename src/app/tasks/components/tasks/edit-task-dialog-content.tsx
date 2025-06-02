@@ -27,9 +27,9 @@ export default function EditTaskDialogContent({task} : {task: Task}){
         if(values.name !== task.name) updates.name = values.name;
         if(adjustForTimezone(values.due) !== task.due) updates.due = adjustForTimezone(values.due);
         if(values.due === undefined || values.due === null) updates.due = null;
-        if(values.groupid !== task.groupid) updates.groupid = values.groupid;
+        updates.groupid = values.groupid;
 
-        axios.post('http://localhost:8080/tasks/update/', {
+        axios.post('http://localhost:8080/tasks/update/task/', {
             taskid: task.id,
             updates
         }, {

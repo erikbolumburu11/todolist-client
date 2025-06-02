@@ -21,6 +21,8 @@ export type Group = {
 
 interface TaskContextType {
     groups: Group[];
+    addGroup: (group: Group) => void;
+    setGroups: Dispatch<SetStateAction<Group[]>>;
     currentGroupId: number;
     setCurrentGroupId: Dispatch<SetStateAction<number>>;
     tasksByGroup: Record<number, Task[]>;
@@ -30,7 +32,7 @@ interface TaskContextType {
 export const TaskContext = createContext<TaskContextType | null>(null);
 
 export const TaskProvider = ({ children } : {children: ReactNode}) => {
-    const [groups, setGroups] = useState<Task[]>([]);
+    const [groups, setGroups] = useState<Group[]>([]);
     const [currentGroupId, setCurrentGroupId] = useState<number>(-1);
     const [tasksByGroup, setTasksByGroup] = useState<Record<number, Task[]>>({});
 
@@ -81,12 +83,18 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
         }));
     }
 
+    const addGroup = (group: Group) => {
+        setGroups(prev => [...prev, group]);
+    }
+
     const value = useMemo(() => ({
         groups,
+        addGroup,
+        setGroups,
         currentGroupId,
         setCurrentGroupId,
         tasksByGroup,
-        setTasksForGroup
+        setTasksForGroup,
     }), [groups, currentGroupId, tasksByGroup])
 
     return (

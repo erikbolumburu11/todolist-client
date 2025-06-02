@@ -109,8 +109,6 @@ function DropDropdownEntries({form} : {
         form: UseFormReturn<any>
 }){ 
     const { groups } = useContext(TaskContext)!;
-    console.log(groups);
-
     
     const groupEntries = groups.map((group, index) => (
         <DropdownMenuItem 

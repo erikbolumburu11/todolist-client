@@ -14,8 +14,8 @@ import {
 import { SidebarFooterContent } from "./sidebar-footer-content"
 import { TaskProvider } from "@/app/contexts/taskcontext"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import AddTaskDialogContent from "@/app/tasks/components/add-task-dialog-content"
-import GroupList from "./group-list"
+import AddTaskDialogContent from "@/app/tasks/components/tasks/add-task-dialog-content"
+import GroupList from "./groups/group-list"
 
 export function AppSidebar() {
 
@@ -29,7 +29,7 @@ export function AppSidebar() {
                   <div className="flex justify-center w-full">
                     <Dialog>
                       <DialogTrigger asChild>
-                          <Button className="w-19/20 h-10 rounded hover:bg-primary-400 ">
+                          <Button className="w-19/20 h-10 rounded  hover:bg-primary-400 ">
                               <p className="text-xl">Add Task</p>
                           </Button>
                         </DialogTrigger>
