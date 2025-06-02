@@ -5,13 +5,14 @@ import { Pen, Trash2 } from "lucide-react";
 import axios from "axios";
 import { useContext } from "react";
 import EditTaskDialogContent from "../tasks/edit-task-dialog-content";
+import 'dotenv/config'
 
 export default function TaskActions({task} : {task: Task}){
     const { tasksByGroup, currentGroupId, setTasksForGroup } = useContext(TaskContext)!;
     const tasks = tasksByGroup[currentGroupId];
 
     function deleteTask(){
-        axios.post('http://localhost:8080/tasks/delete/task/', {
+        axios.post(process.env.API_URL + '/tasks/delete/task/', {
             taskid: task.id
         }, {
             withCredentials: true

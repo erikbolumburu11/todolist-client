@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { TaskContext } from "@/app/contexts/taskcontext";
 import { adjustForTimezone } from "./edit-task-dialog-content";
 import TaskDialogForm from "./task-dialog-form";
+import 'dotenv/config'
 
 export default function AddTaskDialogContent(){
     const { tasksByGroup, currentGroupId, setTasksForGroup } = useContext(TaskContext)!;
@@ -17,7 +18,7 @@ export default function AddTaskDialogContent(){
 
     function onSubmit(values: z.infer<typeof taskSchema>){
         console.log(values.due);
-        axios.post('http://localhost:8080/tasks/new/task/', {
+        axios.post(process.env.API_URL + '/tasks/new/task/', {
             taskName: values.name,
             due: adjustForTimezone(values.due),
             groupid: values.groupid

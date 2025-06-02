@@ -7,6 +7,7 @@ import { useContext } from "react";
 import AddGroupDialogContent from "./add-group-dialog-content";
 import axios from "axios";
 import EditGroupDialogContent from "./edit-group-dialog-content";
+import 'dotenv/config'
 
 export default function GroupList(){
     const { groups, setGroups} = useContext(TaskContext)!;
@@ -37,7 +38,7 @@ export default function GroupList(){
     ));
 
     function deleteGroup(group: Group){
-        axios.post('http://localhost:8080/tasks/delete/group/', {
+        axios.post(process.env.API_URL + '/tasks/delete/group/', {
             groupid: group.id
         }, {
             withCredentials: true

@@ -2,8 +2,7 @@ import { Task, TaskContext } from "@/app/contexts/taskcontext";
 import axios from "axios";
 import { useContext } from "react";
 import { useState } from "react";
-
-
+import 'dotenv/config'
 
 export default function TaskCheckbox({ task }: { task: Task }) {
     const { tasksByGroup, currentGroupId, setTasksForGroup} = useContext(TaskContext)!;
@@ -19,7 +18,7 @@ export default function TaskCheckbox({ task }: { task: Task }) {
         ));
         setTasksForGroup(currentGroupId, updatedTasks);
 
-        axios.post('http://localhost:8080/tasks/setdone/', {
+        axios.post(process.env.API_URL + '/tasks/setdone/', {
             taskid: task.id,
             done: isDone 
         }, {

@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { createContext, ReactNode, useEffect, useState } from "react";
+import 'dotenv/config'
 
 export interface User {
     username: string;
@@ -13,7 +14,7 @@ export const UserProvider = ({ children } : {children: ReactNode}) => {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/auth/userdata/', {
+        axios.get(process.env.API_URL + '/auth/userdata/', {
             withCredentials: true
         })
         .then((response) => {

@@ -10,6 +10,7 @@ import { useContext, useEffect } from "react";
 import { Group, TaskContext } from "@/app/contexts/taskcontext";
 import { groupSchema } from "@/app/schemas/groupschema";
 import GroupDialogForm from "./group-dialog-form";
+import 'dotenv/config'
 
 export default function EditGroupDialogContent({group} : {group: Group}){
     const { groups, setGroups } = useContext(TaskContext)!;
@@ -18,7 +19,7 @@ export default function EditGroupDialogContent({group} : {group: Group}){
         const updates: any = {};
         if(values.name !== group.name) updates.name = values.name;
 
-        axios.post('http://localhost:8080/tasks/update/group/', {
+        axios.post(process.env.API_URL + '/tasks/update/group/', {
             groupid: group.id,
             updates
         }, {

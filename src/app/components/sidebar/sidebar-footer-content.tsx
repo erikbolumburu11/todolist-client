@@ -8,12 +8,13 @@ import axios from "axios";
 import { ChevronUp, User2 } from "lucide-react";
 import { redirect }  from "next/navigation";
 import { useContext } from "react";
+import 'dotenv/config'
 
 function AccountSettings(){
     const user = useContext(UserContext);
 
     function logout(){
-        axios.post('http://localhost:8080/auth/logout/', {}, {
+        axios.post(process.env.API_URL + '/auth/logout/', {}, {
             withCredentials: true
         })
         .catch((error) => {

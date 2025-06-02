@@ -9,12 +9,13 @@ import { Button } from "@/components/ui/button";
 import axios from "axios"
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import 'dotenv/config'
 
 export default function Login() {
     const router = useRouter();
 
     function onSubmit(values: z.infer<typeof userSchema>){
-        axios.post('http://localhost:8080/auth/login/', {
+        axios.post(process.env.API_URL + '/auth/login/', {
             username: values.username,
             password: values.password
         }, {
