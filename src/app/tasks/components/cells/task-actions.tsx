@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Pen, Trash2 } from "lucide-react";
 import axios from "axios";
 import { useContext } from "react";
-import AddGroupDialogContent from "@/app/components/sidebar/groups/add-group-dialog-content";
+import EditTaskDialogContent from "../tasks/edit-task-dialog-content";
 
 export default function TaskActions({task} : {task: Task}){
     const { tasksByGroup, currentGroupId, setTasksForGroup } = useContext(TaskContext)!;
@@ -32,7 +32,7 @@ export default function TaskActions({task} : {task: Task}){
                     </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-md">
-                    <AddGroupDialogContent task={task}/>
+                    <EditTaskDialogContent task={task}/>
                 </DialogContent>
             </Dialog>
             <Button

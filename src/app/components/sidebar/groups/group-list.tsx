@@ -51,18 +51,18 @@ export default function GroupList(){
 
     return (
         <div className="">
-            <div>
+            <div className="flex items-center">
                 <span className="mx-4 text-3xl font-semibold">Task Groups</span>
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Button className="mx-1 ml-auto hover:bg-accent-200 shadow bg-background-100 rounded">
-                            <Plus/>
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-md">
-                        <AddGroupDialogContent/>
-                    </DialogContent>
-                </Dialog>
+                    <Dialog>
+                        <DialogTrigger asChild className="ml-auto items-center">
+                            <Button className="mx-1 ml-auto hover:bg-accent-200 shadow bg-background-100 rounded">
+                                <Plus/>
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-md">
+                            <AddGroupDialogContent/>
+                        </DialogContent>
+                    </Dialog>
             </div>
             <div>
                 <GroupListEntry name={"All Tasks"} groupid={-1}/>
