@@ -38,7 +38,7 @@ export default function GroupList(){
     ));
 
     function deleteGroup(group: Group){
-        axios.post(process.env.API_URL + '/tasks/delete/group/', {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/delete/group/', {
             groupid: group.id
         }, {
             withCredentials: true

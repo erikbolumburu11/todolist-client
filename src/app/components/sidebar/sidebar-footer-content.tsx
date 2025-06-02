@@ -14,7 +14,7 @@ function AccountSettings(){
     const user = useContext(UserContext);
 
     function logout(){
-        axios.post(process.env.API_URL + '/auth/logout/', {}, {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + '/auth/logout/', {}, {
             withCredentials: true
         })
         .catch((error) => {

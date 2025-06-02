@@ -18,7 +18,7 @@ export default function TaskCheckbox({ task }: { task: Task }) {
         ));
         setTasksForGroup(currentGroupId, updatedTasks);
 
-        axios.post(process.env.API_URL + '/tasks/setdone/', {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/setdone/', {
             taskid: task.id,
             done: isDone 
         }, {

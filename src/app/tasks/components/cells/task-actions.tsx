@@ -12,7 +12,7 @@ export default function TaskActions({task} : {task: Task}){
     const tasks = tasksByGroup[currentGroupId];
 
     function deleteTask(){
-        axios.post(process.env.API_URL + '/tasks/delete/task/', {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/delete/task/', {
             taskid: task.id
         }, {
             withCredentials: true

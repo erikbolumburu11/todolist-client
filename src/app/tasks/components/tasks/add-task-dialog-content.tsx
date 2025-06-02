@@ -18,7 +18,7 @@ export default function AddTaskDialogContent(){
 
     function onSubmit(values: z.infer<typeof taskSchema>){
         console.log(values.due);
-        axios.post(process.env.API_URL + '/tasks/new/task/', {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/new/task/', {
             taskName: values.name,
             due: adjustForTimezone(values.due),
             groupid: values.groupid

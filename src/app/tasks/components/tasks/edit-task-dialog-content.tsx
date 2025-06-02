@@ -30,7 +30,7 @@ export default function EditTaskDialogContent({task} : {task: Task}){
         if(values.due === undefined || values.due === null) updates.due = null;
         updates.groupid = values.groupid;
 
-        axios.post(process.env.API_URL + '/tasks/update/task/', {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/update/task/', {
             taskid: task.id,
             updates
         }, {

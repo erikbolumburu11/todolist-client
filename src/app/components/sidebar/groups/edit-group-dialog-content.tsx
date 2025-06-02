@@ -19,7 +19,7 @@ export default function EditGroupDialogContent({group} : {group: Group}){
         const updates: any = {};
         if(values.name !== group.name) updates.name = values.name;
 
-        axios.post(process.env.API_URL + '/tasks/update/group/', {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/update/group/', {
             groupid: group.id,
             updates
         }, {

@@ -15,7 +15,7 @@ export default function AddGroupDialogContent(){
     const { addGroup } = useContext(TaskContext)!;
 
     function onSubmit(values: z.infer<typeof groupSchema>){
-        axios.post(process.env.API_URL + '/tasks/new/group/', {
+        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/new/group/', {
             groupName: values.name,
         }, {
             withCredentials: true

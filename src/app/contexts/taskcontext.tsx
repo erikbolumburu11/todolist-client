@@ -3,6 +3,7 @@
 import axios from "axios";
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useState } from "react";
 import { UserContext } from "./usercontext";
+import 'dotenv/config'
 
 export const UNGROUPED_KEY = -1;
 
@@ -41,7 +42,7 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
     useEffect(() => {
         if(user === null) return;
 
-        axios.get('http://localhost:8080/tasks/get/groups/', {
+        axios.get(process.env.NEXT_PUBLIC_API_URL + '/tasks/get/groups/', {
             withCredentials: true
         })
         .then((response) => {
@@ -56,7 +57,7 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
     useEffect(() => {
         if(user === null) return;
         if(currentGroupId == null){
-            axios.get(`http://localhost:8080/tasks/get/`, { withCredentials: true })
+            axios.get(process.env.NEXT_PUBLIC_API_URL + `/tasks/get/`, { withCredentials: true })
             .then((response) => {
                 setTasksByGroup(prev => ({
                     ...prev,
@@ -66,7 +67,7 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
             .catch(console.error);
         }
 
-        axios.get(`http://localhost:8080/tasks/get/${currentGroupId}`, { withCredentials: true })
+        axios.get(process.env.url + `/tasks/get/${currentGroupId}`, { withCredentials: true })
             .then((response) => {
                 setTasksByGroup(prev => ({
                     ...prev,
