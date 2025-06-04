@@ -8,13 +8,13 @@ import axios from "axios";
 import { ChevronUp, User2 } from "lucide-react";
 import { redirect }  from "next/navigation";
 import { useContext } from "react";
-import 'dotenv/config'
+import { API_CONNECTION_STRING } from "../../../../next.config";
 
 function AccountSettings(){
     const user = useContext(UserContext);
 
     function logout(){
-        axios.post(process.env.NEXT_PUBLIC_API_URL + '/auth/logout/', {}, {
+        axios.post(API_CONNECTION_STRING + '/auth/logout/', {}, {
             withCredentials: true
         })
         .catch((error) => {

@@ -9,13 +9,13 @@ import { Button } from "@/components/ui/button";
 import axios from "axios"
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import 'dotenv/config'
+import { API_CONNECTION_STRING } from "../../../../next.config";
 
 export default function Register() {
     const router = useRouter();
 
     function onSubmit(values: z.infer<typeof userSchema>){
-        axios.post(process.env.NEXT_PUBLIC_API_URL + '/auth/register/', {
+        axios.post(API_CONNECTION_STRING + '/auth/register/', {
             username: values.username,
             password: values.password
         }, {

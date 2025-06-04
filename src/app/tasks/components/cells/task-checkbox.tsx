@@ -3,6 +3,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { useState } from "react";
 import 'dotenv/config'
+import { API_CONNECTION_STRING } from "../../../../../next.config";
 
 export default function TaskCheckbox({ task }: { task: Task }) {
     const { tasksByGroup, currentGroupId, setTasksForGroup} = useContext(TaskContext)!;
@@ -18,7 +19,7 @@ export default function TaskCheckbox({ task }: { task: Task }) {
         ));
         setTasksForGroup(currentGroupId, updatedTasks);
 
-        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/setdone/', {
+        axios.post(API_CONNECTION_STRING + '/tasks/setdone/', {
             taskid: task.id,
             done: isDone 
         }, {

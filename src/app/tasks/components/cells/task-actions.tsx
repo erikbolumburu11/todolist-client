@@ -6,13 +6,14 @@ import axios from "axios";
 import { useContext } from "react";
 import EditTaskDialogContent from "../tasks/edit-task-dialog-content";
 import 'dotenv/config'
+import { API_CONNECTION_STRING } from "../../../../../next.config";
 
 export default function TaskActions({task} : {task: Task}){
     const { tasksByGroup, currentGroupId, setTasksForGroup } = useContext(TaskContext)!;
     const tasks = tasksByGroup[currentGroupId];
 
     function deleteTask(){
-        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/delete/task/', {
+        axios.post(API_CONNECTION_STRING + '/tasks/delete/task/', {
             taskid: task.id
         }, {
             withCredentials: true

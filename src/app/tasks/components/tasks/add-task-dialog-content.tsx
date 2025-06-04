@@ -11,13 +11,14 @@ import { TaskContext } from "@/app/contexts/taskcontext";
 import { adjustForTimezone } from "./edit-task-dialog-content";
 import TaskDialogForm from "./task-dialog-form";
 import 'dotenv/config'
+import { API_CONNECTION_STRING } from "../../../../../next.config";
 
 export default function AddTaskDialogContent(){
     const { tasksByGroup, currentGroupId, setTasksForGroup } = useContext(TaskContext)!;
     const tasks = tasksByGroup[currentGroupId];
 
     function onSubmit(values: z.infer<typeof taskSchema>){
-        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/new/task/', {
+        axios.post(API_CONNECTION_STRING + '/tasks/new/task/', {
             taskName: values.name,
             due: adjustForTimezone(values.due),
             groupid: values.groupid

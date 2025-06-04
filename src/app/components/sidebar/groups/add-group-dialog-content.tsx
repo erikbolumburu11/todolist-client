@@ -9,13 +9,13 @@ import { useContext } from "react";
 import { TaskContext } from "@/app/contexts/taskcontext";
 import { groupSchema } from "@/app/schemas/groupschema";
 import GroupDialogForm from "./group-dialog-form";
-import 'dotenv/config'
+import { API_CONNECTION_STRING } from "../../../../../next.config";
 
 export default function AddGroupDialogContent(){
     const { addGroup } = useContext(TaskContext)!;
 
     function onSubmit(values: z.infer<typeof groupSchema>){
-        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/new/group/', {
+        axios.post(API_CONNECTION_STRING + '/tasks/new/group/', {
             groupName: values.name,
         }, {
             withCredentials: true

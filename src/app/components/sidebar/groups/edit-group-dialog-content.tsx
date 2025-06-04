@@ -10,7 +10,7 @@ import { useContext, useEffect } from "react";
 import { Group, TaskContext } from "@/app/contexts/taskcontext";
 import { groupSchema } from "@/app/schemas/groupschema";
 import GroupDialogForm from "./group-dialog-form";
-import 'dotenv/config'
+import { API_CONNECTION_STRING } from "../../../../../next.config";
 
 export default function EditGroupDialogContent({group} : {group: Group}){
     const { groups, setGroups } = useContext(TaskContext)!;
@@ -19,7 +19,7 @@ export default function EditGroupDialogContent({group} : {group: Group}){
         const updates: any = {};
         if(values.name !== group.name) updates.name = values.name;
 
-        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/update/group/', {
+        axios.post(API_CONNECTION_STRING + '/tasks/update/group/', {
             groupid: group.id,
             updates
         }, {

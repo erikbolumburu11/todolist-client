@@ -11,7 +11,7 @@ import { useContext, useEffect } from "react";
 import { Task, TaskContext } from "@/app/contexts/taskcontext";
 import { addMinutes, subMinutes } from "date-fns";
 import TaskDialogForm from "./task-dialog-form";
-import 'dotenv/config'
+import { API_CONNECTION_STRING } from "../../../../../next.config";
 
 export function adjustForTimezone(date: Date | undefined | null){
     if(date === null || date === undefined) return;
@@ -30,7 +30,7 @@ export default function EditTaskDialogContent({task} : {task: Task}){
         if(values.due === undefined || values.due === null) updates.due = null;
         updates.groupid = values.groupid;
 
-        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/update/task/', {
+        axios.post(API_CONNECTION_STRING + '/tasks/update/task/', {
             taskid: task.id,
             updates
         }, {

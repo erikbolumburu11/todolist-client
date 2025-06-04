@@ -3,6 +3,7 @@
 import axios from "axios";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import 'dotenv/config'
+import { API_CONNECTION_STRING } from "../../../next.config";
 
 export interface User {
     username: string;
@@ -14,7 +15,7 @@ export const UserProvider = ({ children } : {children: ReactNode}) => {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        axios.get(process.env.NEXT_PUBLIC_API_URL + '/auth/userdata/', {
+        axios.get(API_CONNECTION_STRING + '/auth/userdata/', {
             withCredentials: true
         })
         .then((response) => {

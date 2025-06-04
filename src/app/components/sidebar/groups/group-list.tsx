@@ -7,7 +7,7 @@ import { useContext } from "react";
 import AddGroupDialogContent from "./add-group-dialog-content";
 import axios from "axios";
 import EditGroupDialogContent from "./edit-group-dialog-content";
-import 'dotenv/config'
+import { API_CONNECTION_STRING } from "../../../../../next.config";
 
 export default function GroupList(){
     const { groups, setGroups} = useContext(TaskContext)!;
@@ -38,7 +38,7 @@ export default function GroupList(){
     ));
 
     function deleteGroup(group: Group){
-        axios.post(process.env.NEXT_PUBLIC_API_URL + '/tasks/delete/group/', {
+        axios.post(API_CONNECTION_STRING + '/tasks/delete/group/', {
             groupid: group.id
         }, {
             withCredentials: true
