@@ -21,7 +21,7 @@ export default function Register() {
         }, {
             withCredentials: true
         }).then(() => {
-            axios.post('http://localhost:8080/auth/login/', {
+            axios.post(API_CONNECTION_STRING + '/auth/login/', {
                 username: values.username,
                 password: values.password
             }, {
