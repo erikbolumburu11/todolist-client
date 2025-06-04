@@ -24,6 +24,7 @@ export default function TaskList(){
 
     const columnHelper = createColumnHelper<Task>();
 
+
     const columns = [
         columnHelper.accessor("done", {
             header: ({ column }) => {
@@ -56,7 +57,10 @@ export default function TaskList(){
                     <HeaderButton title="Group" column={column}/>
                 )
         },
-            cell: (info) => getGroupName(groups[info.row.original.groupid - 1]),
+            cell: (info) => {
+                const group = groups.find((g) => g.id === info.row.original.groupid);
+                return getGroupName(group!);
+            },
         }),
         columnHelper.display({
             id: "actions",
