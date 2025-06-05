@@ -41,7 +41,6 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
 
     useEffect(() => {
         if(user === null) return;
-
         axios.get(API_CONNECTION_STRING + '/tasks/get/groups/', {
             withCredentials: true
         })

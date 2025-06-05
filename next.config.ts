@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import 'dotenv/config'
+import axios from "axios";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -15,3 +16,13 @@ if(environment === "production"){
 }
 
 export { API_CONNECTION_STRING };
+
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});

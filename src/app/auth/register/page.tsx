@@ -26,7 +26,8 @@ export default function Register() {
                 password: values.password
             }, {
                 withCredentials: true
-            }).then(() => {
+            }).then((response) => {
+                localStorage.setItem('token', response.data.token);
                 router.push('/tasks');
             })
             .catch((error) => {

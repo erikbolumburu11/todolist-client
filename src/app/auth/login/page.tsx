@@ -20,7 +20,8 @@ export default function Login() {
             password: values.password
         }, {
             withCredentials: true
-        }).then(() => {
+        }).then((response) => {
+            localStorage.setItem('token', response.data.token);
             router.push('/tasks');
         })
         .catch((error) => {
