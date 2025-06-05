@@ -58,7 +58,12 @@ export default function AddTaskDialogContent(){
                 <form onSubmit={form.handleSubmit(onSubmit)} className="">
                     <TaskDialogForm form={form} />
                     <DialogClose asChild>
-                        <Button type="submit">Add Task</Button>
+                        <Button 
+                        className="rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500"
+                        type="submit"
+                    >
+                        Add Task
+                    </Button>
                     </DialogClose>
                 </form>
             </Form>

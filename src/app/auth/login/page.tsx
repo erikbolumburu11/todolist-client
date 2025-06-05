@@ -3,16 +3,18 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod";
 import { userSchema } from "../../schemas/userschema";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios"
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { API_CONNECTION_STRING } from "../../../../next.config";
+import { useState } from "react";
 
 export default function Login() {
     const router = useRouter();
+    const [error, setError] = useState("");
 
     function onSubmit(values: z.infer<typeof userSchema>){
         axios.post(API_CONNECTION_STRING + '/auth/login/', {
@@ -26,6 +28,7 @@ export default function Login() {
         })
         .catch((error) => {
             console.log(error);
+            setError(error.response.data);
         });
     }
 
@@ -53,6 +56,7 @@ export default function Login() {
                                         <FormControl>
                                             <Input placeholder="Username" {...field} />
                                         </FormControl>
+                                        <FormMessage className="text-red-700 font-semibold"/>
                                     </FormItem>
                                 )}
                             />
@@ -72,11 +76,18 @@ export default function Login() {
                                                 {...field}
                                             />
                                         </FormControl>
+                                        <FormMessage className="text-red-700 font-semibold"/>
                                     </FormItem>
                                 )}
                             />
                         </div>
-                        <Button type="submit">Log in</Button>
+                        <Button 
+                            className="rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500"
+                            type="submit"
+                        >
+                            Log in
+                        </Button>
+                        <p className="text-red-700 font-semibold mt-3">{error}</p>
                     </form>
                 </Form>
         </div>

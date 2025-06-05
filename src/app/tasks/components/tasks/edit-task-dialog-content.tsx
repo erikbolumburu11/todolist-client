@@ -79,7 +79,12 @@ export default function EditTaskDialogContent({task} : {task: Task}){
                 <form onSubmit={form.handleSubmit(onSubmit)} className="">
                     <TaskDialogForm form={form} task={task}/>
                     <DialogClose asChild>
-                        <Button type="submit">Save Changes</Button>
+                        <Button 
+                        className="rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500"
+                        type="submit"
+                    >
+                        Save Changes
+                    </Button>
                     </DialogClose>
                 </form>
             </Form>

@@ -3,7 +3,7 @@ import { Group, Task, TaskContext } from "@/app/contexts/taskcontext";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
@@ -30,9 +30,11 @@ export default function TaskDialogForm(
                             <FormLabel>Task Title</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="Task Title" 
+                                    placeholder="Task Title"
+                                    autoComplete="off" 
                                     {...field} />
                             </FormControl>
+                            <FormMessage className="text-red-700 font-semibold"/>
                         </FormItem>
                     )}
                 />
@@ -49,7 +51,7 @@ export default function TaskDialogForm(
                                     <PopoverTrigger asChild>
                                         <Button 
                                             variant={"outline"}
-                                            className="justify-start text-left w-9/10"
+                                            className="justify-start text-left w-9/10 hover:bg-linear-to-r hover:from-primary-400 hover:to-primary-600"
                                             >
                                                 <CalendarIcon className="mr-2 h-4 w-4"/>
                                                 {field.value ? format(field.value, "PPP") : <span>No Date Selected</span>}
@@ -58,7 +60,7 @@ export default function TaskDialogForm(
                                     <Button 
                                         type="button"
                                         onClick={() => {form.setValue("due", undefined)}}
-                                        className="w-1/10"
+                                        className="w-1/10 shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500"
                                     >
                                         <X/>
                                     </Button>
@@ -153,7 +155,7 @@ function GroupDropdownTrigger({form} : {
     if(group) dropdownLabel = group.name;
 
     return (
-        <DropdownMenuTrigger className="border h-9 hover:bg-secondary">
+        <DropdownMenuTrigger className="border h-9 hover:bg-linear-to-r hover:from-primary-400 hover:to-primary-600">
             <div className="flex items-center">
                 <GroupIcon className="ms-3" size={20}/>
                 <span className="font-semibold ms-3 text-sm">{dropdownLabel}</span>

@@ -69,10 +69,10 @@ export default function Home() {
               </p>
               <span className="font-semibold text-4xl">Get Started</span>
               <div className="flex">
-                <Button className="px-6 py-3 w-fit me-3 rounded" asChild>
+                <Button className="px-6 py-3 w-fit me-3 rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500" asChild>
                   <Link href="/auth/register/">Register</Link>
                 </Button>
-                <Button className="px-6 py-3 w-fit rounded" asChild>
+                <Button className="px-6 py-3 w-fit me-3 rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500" asChild>
                   <Link href="/auth/login/">Login</Link>
                 </Button>
               </div>

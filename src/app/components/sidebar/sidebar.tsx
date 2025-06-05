@@ -18,7 +18,6 @@ import AddTaskDialogContent from "@/app/tasks/components/tasks/add-task-dialog-c
 import GroupList from "./groups/group-list"
 
 export function AppSidebar() {
-
   return (
     <Sidebar>
       <SidebarHeader/>
@@ -29,7 +28,7 @@ export function AppSidebar() {
                   <div className="flex justify-center w-full">
                     <Dialog>
                       <DialogTrigger asChild>
-                          <Button className="w-19/20 h-10 rounded  hover:bg-primary-400 ">
+                          <Button className="w-19/20 h-10 rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500">
                               <p className="text-xl">Add Task</p>
                           </Button>
                         </DialogTrigger>

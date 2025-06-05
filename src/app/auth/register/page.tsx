@@ -3,16 +3,18 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod";
 import { userSchema } from "../../schemas/userschema";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios"
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { API_CONNECTION_STRING } from "../../../../next.config";
+import { useState } from "react";
 
 export default function Register() {
     const router = useRouter();
+    const [error, setError] = useState("");
 
     function onSubmit(values: z.infer<typeof userSchema>){
         axios.post(API_CONNECTION_STRING + '/auth/register/', {
@@ -36,6 +38,7 @@ export default function Register() {
         })
         .catch((error) => {
             console.log(error);
+            setError(error.response.data);
         });
     }
 
@@ -50,7 +53,7 @@ export default function Register() {
     return (
         <div className="m-10 max-w-100">
         <h1>Register</h1>
-        <div className="mt-5">
+        <div className="mt-4">
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="">
                         <div className="my-3">
@@ -63,6 +66,7 @@ export default function Register() {
                                         <FormControl>
                                             <Input placeholder="Username" {...field} />
                                         </FormControl>
+                                        <FormMessage className="text-red-700 font-semibold"/>
                                     </FormItem>
                                 )}
                             />
@@ -82,11 +86,18 @@ export default function Register() {
                                                 {...field}
                                             />
                                         </FormControl>
+                                        <FormMessage className="text-red-700 font-semibold"/>
                                     </FormItem>
                                 )}
                             />
                         </div>
-                        <Button type="submit">Register</Button>
+                        <Button 
+                            className="rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500"
+                            type="submit"
+                        >
+                            Register
+                        </Button>
+                        <p className="text-red-700 font-semibold mt-3">{error}</p>
                     </form>
                 </Form>
         </div>
