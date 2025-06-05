@@ -102,7 +102,7 @@ export default function TaskList(){
                         <TaskDueDateLabel date={task.due}/>
                         <div className="flex items-center">
                             <Group/>
-                            <span className="text-sm mx-2 my-2">{getGroupName(groups[task.groupid - 1])}</span>
+                            <span className="text-sm mx-2 my-2">{getGroupName(groups.find((g) => g.id === task.groupid)!)}</span>
                             <TaskActions task={task}/>
                         </div>
                     </CardContent>
