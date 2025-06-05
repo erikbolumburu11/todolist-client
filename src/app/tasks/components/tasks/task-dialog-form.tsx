@@ -69,7 +69,6 @@ export default function TaskDialogForm(
                                         mode="single"
                                         selected={field.value!}
                                         onSelect={field.onChange}
-                                        initialFocus
                                     />
                                 </PopoverContent>
                             </Popover>
