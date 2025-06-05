@@ -20,7 +20,7 @@ function AccountSettings(){
         <div className="bg-primary hover:bg-primary-600 rounded h-10">
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <SidebarMenuButton className="flex min-w-1/1 min-h-1/1 rounded shadow-lg bg-linear-to-r from-primary-500 to-primary-600 hover:from-primary-300 hover:to-primary-500">
+                    <SidebarMenuButton className="flex min-w-1/1 min-h-1/1 rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500">
                     <div className="flex text-xl items-center min-w-1/1 min-h-1/1">
                         <User2 className="mx-3"/> {user?.username}
                         <ChevronUp className="ml-auto"/>
@@ -52,12 +52,12 @@ function AccountSettings(){
 function LoginButton(){
     return (
         <div>
-            <Button className="w-19/20 h-10 rounded my-1 shadow-lg bg-linear-to-r from-primary-500 to-primary-600 hover:from-primary-300 hover:to-primary-500" onClick={() => {
+            <Button className="w-19/20 h-10 rounded my-1 shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500" onClick={() => {
                 redirect('/auth/register');
             }}>
                 <p className="text-xl">Register</p>
             </Button>
-            <Button className="w-19/20 h-10 rounded my-1 shadow-lg bg-linear-to-r from-primary-500 to-primary-600 hover:from-primary-300 hover:to-primary-500" onClick={() => {
+            <Button className="w-19/20 h-10 rounded my-1 shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500" onClick={() => {
                 redirect('/auth/login');
             }}>
                 <p className="text-xl">Log In</p>
