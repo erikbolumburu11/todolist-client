@@ -13,7 +13,7 @@ function AccountSettings(){
 
     function logout(){
         localStorage.removeItem('token');
-        window.location.href = '/tasks';
+        window.location.href = '/';
     }
 
     return (
