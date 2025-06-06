@@ -59,11 +59,11 @@ export default function AddTaskDialogContent(){
                     <TaskDialogForm form={form} />
                     <DialogClose asChild>
                         <Button 
-                        className="rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500"
-                        type="submit"
-                    >
-                        Add Task
-                    </Button>
+                            className="rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500"
+                            type="submit"
+                        >
+                            Add Task
+                        </Button>
                     </DialogClose>
                 </form>
             </Form>

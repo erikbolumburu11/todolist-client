@@ -65,7 +65,7 @@ export default function Home() {
               <p className="text-base md:text-lg">
                 A fast, minimal todo app built to be sleek and responsive.
                 Group tasks, track deadlines, and stay organized without the clutter of modern web apps.
-                Built using Next.js, Express and PostgreSQL.
+                Built using Next.js, Express.js and PostgreSQL.
               </p>
               <span className="font-semibold text-4xl">Get Started</span>
               <div className="flex">

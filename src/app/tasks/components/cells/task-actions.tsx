@@ -29,7 +29,7 @@ export default function TaskActions({task} : {task: Task}){
         <div className="flex ml-auto items-center">
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button className="mx-1 ml-auto hover:bg-accent-200 shadow bg-background-100 rounded">
+                    <Button className="mx-1 ml-auto cursor-pointer hover:bg-accent-200 shadow bg-background-100 rounded">
                         <Pen/>
                     </Button>
                 </DialogTrigger>
@@ -38,7 +38,7 @@ export default function TaskActions({task} : {task: Task}){
                 </DialogContent>
             </Dialog>
             <Button
-                className="mx-1 hover:bg-accent-200 shadow bg-background-100 rounded"
+                className="mx-1 hover:bg-accent-200 cursor-pointer shadow bg-background-100 rounded"
                 onClick={deleteTask}
             >
                 <Trash2/>

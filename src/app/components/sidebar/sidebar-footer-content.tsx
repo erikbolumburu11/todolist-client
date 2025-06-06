@@ -20,7 +20,7 @@ function AccountSettings(){
         <div className="bg-primary hover:bg-primary-600 rounded h-10">
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <SidebarMenuButton className="flex min-w-1/1 min-h-1/1 rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500">
+                    <SidebarMenuButton className="flex cursor-pointer min-w-1/1 min-h-1/1 rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500">
                     <div className="flex text-xl items-center min-w-1/1 min-h-1/1">
                         <User2 className="mx-3"/> {user?.username}
                         <ChevronUp className="ml-auto"/>
@@ -28,17 +28,17 @@ function AccountSettings(){
                     </SidebarMenuButton>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent side="top" className="w-[--radix-popper-anchor-width]">
-                    <div className="text-xl my-1">
+                    <div className="text-xl my-1 cursor-pointer">
                         <DropdownMenuItem>
                             <span>Account</span>
                         </DropdownMenuItem>
                         </div>
-                        <div className="text-xl my-1">
+                        <div className="text-xl my-1 cursor-pointer">
                         <DropdownMenuItem>
                             <span>Settings</span>
                         </DropdownMenuItem>
                         </div>
-                        <div className="text-xl my-1">
+                        <div className="text-xl my-1 cursor-pointer">
                         <DropdownMenuItem onClick={logout}>
                             <span>Log Out</span>
                         </DropdownMenuItem>
@@ -52,15 +52,15 @@ function AccountSettings(){
 function LoginButton(){
     return (
         <div>
-            <Button className="w-19/20 h-10 rounded my-1 shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500" onClick={() => {
+            <Button className="w-19/20 cursor-pointer h-10 rounded my-1 shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500" onClick={() => {
                 redirect('/auth/register');
             }}>
                 <p className="text-xl">Register</p>
             </Button>
-            <Button className="w-19/20 h-10 rounded my-1 shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500" onClick={() => {
+            <Button className="w-19/20 h-10 cursor-pointer rounded my-1 shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500" onClick={() => {
                 redirect('/auth/login');
             }}>
-                <p className="text-xl">Log In</p>
+                <p className="text-xl cursor-pointer">Log In</p>
             </Button>
         </div>
     );

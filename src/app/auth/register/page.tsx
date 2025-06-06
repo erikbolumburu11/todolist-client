@@ -92,7 +92,7 @@ export default function Register() {
                             />
                         </div>
                         <Button 
-                            className="rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500"
+                            className="rounded cursor-pointer shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500"
                             type="submit"
                         >
                             Register

@@ -19,7 +19,7 @@ export default function GroupList(){
 
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button className="mx-1 ml-auto hover:bg-accent-200 shadow bg-background-100 rounded">
+                        <Button className="mx-1 ml-auto hover:bg-accent-200 cursor-pointer shadow bg-background-100 rounded">
                             <Pen/>
                         </Button>
                     </DialogTrigger>
@@ -28,7 +28,7 @@ export default function GroupList(){
                     </DialogContent>
                 </Dialog>
                 <Button
-                    className="flex mx-1 hover:bg-accent-200 shadow bg-background-100 rounded items-center"
+                    className="flex mx-1 hover:bg-accent-200 shadow cursor-pointer bg-background-100 rounded items-center"
                     onClick={() => deleteGroup(group)}
                 >
                     <Trash2/>
@@ -56,7 +56,7 @@ export default function GroupList(){
                 <span className="mx-4 text-3xl font-semibold">Task Groups</span>
                     <Dialog>
                         <DialogTrigger asChild className="ml-auto items-center">
-                            <Button className="mx-1 ml-auto hover:bg-accent-200 shadow bg-background-100 rounded">
+                            <Button className="mx-1 ml-auto cursor-pointer hover:bg-accent-200 shadow bg-background-100 rounded">
                                 <Plus/>
                             </Button>
                         </DialogTrigger>

@@ -28,7 +28,7 @@ export function AppSidebar() {
                   <div className="flex justify-center w-full">
                     <Dialog>
                       <DialogTrigger asChild>
-                          <Button className="w-19/20 h-10 rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500">
+                          <Button className="w-19/20 h-10 cursor-pointer rounded shadow-lg bg-linear-to-r from-primary-400 to-primary-600 hover:from-primary-300 hover:to-primary-500">
                               <p className="text-xl">Add Task</p>
                           </Button>
                         </DialogTrigger>
