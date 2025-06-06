@@ -9,7 +9,7 @@ import { redirect }  from "next/navigation";
 import { useContext } from "react";
 
 function AccountSettings(){
-    const user = useContext(UserContext);
+    const { user } = useContext(UserContext)!;
 
     function logout(){
         localStorage.removeItem('token');

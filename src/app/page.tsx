@@ -4,36 +4,13 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-// export default function Home() {
-//   return (
-//     <div className="h-dvh relative">
-//       <div className="absolute top-1/2 left-[3rem] -translate-y-1/2">
-//       <div className="flex-col">
-//           <span className="font-bold text-7xl w-1/4">
-//             Fullstack <br/>
-//             Todo <br/>
-//             App
-//           </span>
-//           <div className="mt-10 w-full mb-10">
-//             <Button 
-//               className="h-30 w-100"
-//               asChild
-//               >
-//               <Link href="/tasks">Tasks</Link>
-//             </Button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 export default function Home() {
   const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
     setFadeIn(true);
   }, []);
+
 
   return (
     <>

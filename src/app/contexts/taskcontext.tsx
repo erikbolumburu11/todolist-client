@@ -28,6 +28,8 @@ interface TaskContextType {
     setCurrentGroupId: Dispatch<SetStateAction<number>>;
     tasksByGroup: Record<number, Task[]>;
     setTasksForGroup: (groupId: number, tasks: Task[]) => void;
+    tasksLoading: boolean;
+    groupsLoading: boolean;
 }
 
 export const TaskContext = createContext<TaskContextType | null>(null);
@@ -37,16 +39,21 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
     const [currentGroupId, setCurrentGroupId] = useState<number>(-1);
     const [tasksByGroup, setTasksByGroup] = useState<Record<number, Task[]>>({});
 
+    const [tasksLoading, setTasksLoading] = useState(false);
+    const [groupsLoading, setGroupsLoading] = useState(false);
+
     const user = useContext(UserContext);
 
     useEffect(() => {
         if(user === null) return;
+        setGroupsLoading(true);
         axios.get(API_CONNECTION_STRING + '/tasks/get/groups/', {
             withCredentials: true
         })
         .then((response) => {
             setGroups(response.data);
             setCurrentGroupId(-1);
+            setGroupsLoading(false);
         })
         .catch((error) => {
             console.log(error);
@@ -55,6 +62,7 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
 
     useEffect(() => {
         if(user === null) return;
+        setTasksLoading(true);
         if(currentGroupId == null){
             axios.get(API_CONNECTION_STRING + `/tasks/get/`, { withCredentials: true })
             .then((response) => {
@@ -62,6 +70,7 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
                     ...prev,
                     [-1]: response.data
                 }));
+                setTasksLoading(false);
             })
             .catch(console.error);
         }
@@ -72,6 +81,7 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
                     ...prev,
                     [currentGroupId!]: response.data
                 }));
+                setTasksLoading(false);
             })
             .catch(console.error);
     }, [currentGroupId, user]);
@@ -95,7 +105,9 @@ export const TaskProvider = ({ children } : {children: ReactNode}) => {
         setCurrentGroupId,
         tasksByGroup,
         setTasksForGroup,
-    }), [groups, currentGroupId, tasksByGroup])
+        tasksLoading,
+        groupsLoading
+    }), [groups, currentGroupId, tasksByGroup, tasksLoading, groupsLoading])
 
     return (
         <TaskContext.Provider value={value}>
